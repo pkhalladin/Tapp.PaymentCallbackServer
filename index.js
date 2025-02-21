@@ -17,6 +17,16 @@ app.post('/payment', (req, res) => {
     res.send('TRUE');
 });
 
+app.get('/transactions', (req, res) => {
+    fs.readFile('transactions.txt', 'utf8', (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        const transactions = data.split('\n').filter((transaction) => transaction.length > 0);
+        res.send(transactions);
+    });
+});
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
