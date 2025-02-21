@@ -2,7 +2,7 @@ services:
     - type: web
       runtime: node
       name: tapp-payment-callback-server-1
-      repo: 
+      repo: https://github.com/pkhalladin/Tapp.PaymentCallbackServer
       plan: free
       buildCommand: npm install
       startCommand: npm start
