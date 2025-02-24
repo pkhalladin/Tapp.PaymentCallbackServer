@@ -21,6 +21,7 @@ app.get('/transactions', (req, res) => {
     fs.readFile('transactions.txt', 'utf8', (err, data) => {
         if (err) {
             console.log(err);
+            return res.send([]);
         }
         const transactions = data
             .split('\n')
@@ -42,6 +43,7 @@ app.get('/transactions/:id', (req, res) => {
     fs.readFile('transactions.txt', 'utf8', (err, data) => {
         if (err) {
             console.log(err);
+            return res.send(null);
         }
         const transaction = data
             .split('\n')
