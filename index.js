@@ -17,13 +17,25 @@ app.post('/payment', (req, res) => {
     res.send('TRUE');
 });
 
-app.get('/transactions', (req, res) => {
+app.get('/transactions/:id', (req, res) => {
+    const id = req.params.id;
     fs.readFile('transactions.txt', 'utf8', (err, data) => {
         if (err) {
             console.log(err);
         }
-        const transactions = data.split('\n').filter((transaction) => transaction.length > 0);
-        res.send(transactions);
+        const transaction = data
+            .split('\n')
+            .filter((transaction) => transaction.length > 0 && transaction.split(';')[0] == id)
+            .map((transaction) => {
+                const [transaction_id, transaction_amount, transaction_status] = transaction.split(';');
+                return {
+                    transaction_id,
+                    transaction_amount,
+                    transaction_status
+                };
+            })
+            .find(_ => true);
+        res.send(transaction);
     });
 });
 
